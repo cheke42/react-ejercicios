@@ -22,4 +22,6 @@ Correr en una segunda consola para utilizar json-server (puerto:5000)
 
 Pd: Se debe tener instalado de manera global [json-server](https://www.npmjs.com/package/json-server)
 
+Pd2: Para el componenten Loader se utilizó la herramienta [loading.io/css](https://loading.io/css/)
+
 :D

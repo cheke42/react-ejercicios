@@ -38,36 +38,52 @@ const CrudApi = () => {
         let 
         options = {body: data, headers:{"content-type": "application/json"}}
         api.post(url,options).then((res) => {
-            console.log(res)
             if(!res.err){
                 setDb([...db, res])
             }else{
                 setError(res)
             }
-        })
-        
-        //console.log(data)
-        
+        })        
     }
 
     const updateData = (data) =>{
-        let newData = db.map(el => el.id ===data.id ? data : el)
-        setDb(newData)
+        let endpoing = `${url}/${data.id}`
+        //console.log(endpoing)
+        let 
+        options = {body: data, headers:{"content-type": "application/json"}}
+        api.put(endpoing,options).then((res) => {
+            if(!res.err){
+                let newData = db.map(el => el.id ===data.id ? data : el)
+                setDb(newData)
+            }else{
+                setError(res)
+            }
+        })
     }
 
-    const deleteData = (id) =>{
+    const deleteData = (id) => {
         let isDelete = window.confirm(
-            `¿Estás seguro de eliminar el registro con el id ${id}?`
-            )
-
-
-        if(isDelete){
-            let newData = db.filter(el => el.id !== id)
-            setDb(newData)
-        }else{
-            return
+          `¿Estás seguro de eliminar el registro con el id '${id}'?`
+        );
+    
+        if (isDelete) {
+          let endpoint = `${url}/${id}`;
+          let options = {
+            headers: { "content-type": "application/json" },
+          };
+    
+          api.del(endpoint, options).then((res) => {
+            if (!res.err) {
+              let newData = db.filter((el) => el.id !== id)
+              setDb(newData)
+            } else {
+              setError(res)
+            }
+          })
+        } else {
+          return
         }
-    }
+      }
 
     return (
         <div>
